@@ -1,0 +1,45 @@
+.am-textarea-control{
+  padding-top: inherit;
+}
+
+.am-modal-body>div{
+    font-size: initial;
+    color: initial;
+}
+.slide-right-enter,
+.slide-right-appear {
+    transform: translate(100% , 0);
+}
+.slide-right-enter,
+.slide-right-appear,
+.slide-right-leave {
+          animation-duration: .2s;
+          animation-fill-mode: both;
+          animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2);
+          animation-play-state: paused;
+}
+.slide-right-enter.slide-right-enter-active,
+.slide-right-appear.slide-right-appear-active {
+          animation-name: slideRightIn;
+          animation-play-state: running;
+}
+.slide-right-leave.slide-right-leave-active {
+          animation-name: slideRightOut;
+          animation-play-state: running;
+}
+@keyframes slideRightIn {
+  0% {
+            transform: translate(100% , 0);
+  }
+  100% {
+            transform: translate(0, 0);
+  }
+}
+@keyframes slideRightOut {
+  0% {
+            transform: translate(0, 0);
+  }
+  100% {
+            transform: translate(100% , 0);
+  }
+}

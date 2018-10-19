@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>滚动屏幕</title>
+    <style>
+        body{background: #000;font-size: 16px;color:white;margin: 0;padding: 0;}
+        #marqueeBox{overflow:hidden;width:128px;height: 80px;border: 2px solid #000;border-top: none;box-sizing: border-box;}
+        #marqueeBox>div{min-height: 80px;}
+        .innel{padding-bottom: 10px;color: red;}
+        .c-white{color:white;}
+        .c-yellow{color:yellow;}
+    </style>
+</head>
+
+<body>
+    <div id="marqueeBox"></div>
+</body>
+<script language="JavaScript" type="text/javascript"> 
+
+    var flag = 0;
+    function ajax(){
+        var fid = window.location.hash.replace('#','')
+        var client = new XMLHttpRequest()
+        var url = fid===""? "/pray/top.do?top=5": "/pray/top.do?top=5&fid="+fid
+        client.open("GET", url)
+        client.onreadystatechange = function() {
+            if (this.status === 200 && this.response!=="") {
+                try {
+                    var res = JSON.parse(this.response)
+                    if(res.returnCode === 1000){
+                        var data = res.data, htmlArr=''
+                        for (var i = 0; i < data.length; i++) {
+                            htmlArr += "<div class='innel'><span class='c-yellow'>"+data[i].prayman+"</span>供灯"+data[i].lednums+"盏<span class='c-white'>"+data[i].blessing+"</span></div>"
+                        }
+                        marqueeContent[flag]=htmlArr;
+                        flag = flag==0?1:0;
+                    }
+                } catch (error) {
+                }
+            }
+        }
+        client.send()
+    }
+    ajax();
+    setInterval(ajax, 10000);
+
+
+    var marqueeContent=new Array(); 
+    marqueeContent[0]=""; 
+    marqueeContent[1]=""; 
+    var marqueeInterval; 
+    var marqueeId=0; 
+    var SPEED=70; 
+    function initMarquee() { 
+        var str=marqueeContent[0]; 
+        document.getElementById("marqueeBox").innerHTML = '<div id="ban">'+str+'</div>'
+        marqueeId++; 
+        startMarquee();
+    } 
+    function startMarquee() { 
+        var str=marqueeContent[marqueeId]; 
+        marqueeId++; 
+        if(marqueeId>=marqueeContent.length) marqueeId=0; 
+        if(document.getElementById("marqueeBox").childNodes.length==1) { 
+            var nextLine=document.createElement('DIV'); 
+            nextLine.innerHTML=str; 
+            document.getElementById("marqueeBox").appendChild(nextLine); 
+        } 
+        else { 
+            document.getElementById("marqueeBox").childNodes[0].innerHTML=str; 
+            document.getElementById("marqueeBox").appendChild(document.getElementById("marqueeBox").childNodes[0]); 
+            document.getElementById("marqueeBox").scrollTop=0; 
+        } 
+        clearInterval(marqueeInterval); 
+        marqueeInterval=setInterval("scrollMarquee()",SPEED); 
+    } 
+    function scrollMarquee() { 
+        document.getElementById("marqueeBox").scrollTop++; 
+        if(document.getElementById("marqueeBox").scrollTop==document.getElementById("ban").offsetHeight){ 
+            clearInterval(marqueeInterval); 
+            startMarquee();
+        } 
+    } 
+    initMarquee(); 
+    </script> 
+</html>

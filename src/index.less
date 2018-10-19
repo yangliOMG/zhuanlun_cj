@@ -1,0 +1,101 @@
+@base: #f938ab;
+@backgroundColor: url('./images/background.jpg') 0 0~"/" 100% 100% ;
+
+@greycolor:#999;
+@redcolor:#f03b37;
+@orangebgColor: #7c5b4a;
+@yijiwenzi: #333;
+@erjiwenzi: #666666;
+@fuzhuwenzi: #7c5b4a;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  box-shadow:         @style @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  div { .box-shadow(0 0 5px, 30%) }
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Microsoft YaHei", "微软雅黑";
+  background:@backgroundColor;
+  font-size: 14px;
+  color: #333;
+}
+.bodyBackgroundColor{background:@backgroundColor}
+.info{color:#666;}
+.navleft{position: relative;color:black }
+#pagetitle{
+  position: absolute;
+  width: 260px;
+  top: 2px;
+  text-align: left;
+  line-height: 1.15;
+}
+.am-button-small {font-size: 14px;}
+.am-tab-bar{position: fixed;bottom: 0;width: 100%;height: auto;}
+
+.text-incent{text-indent: 2em;}
+.text-overflow6{height:70px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 6;
+  -webkit-box-orient: vertical; /* autoprefixer: on */
+}
+.radius{border-radius: 9px;    box-shadow: 1px 3px 10px #ccc;}
+.orangeBtn{background: @orangebgColor!important;box-shadow: 1px 1px 1px #bbb;}
+.orangeBg{background: @orangebgColor;}
+
+.oran{color: white;background: @orangebgColor;border: 1px solid @fuzhuwenzi;}
+.oran-o{color:@fuzhuwenzi;border: 1px solid @fuzhuwenzi;}
+.modeBtn{color:white;background: @greycolor;
+  &:active{background: @fuzhuwenzi}
+}
+.c-grey1{color:@greycolor}
+.bg-grey1{background:@greycolor}
+.c-erji{color:@erjiwenzi}
+.c-fuzhu{color:@fuzhuwenzi}
+.c-bbb{color:#bbb}
+.c-black1{color:@yijiwenzi}
+.bg-red1{background:@redcolor}
+.bg-fuzhu{background:@fuzhuwenzi}
+
+.radius .textarea textarea{border: 1px solid @fuzhuwenzi}
+.moremodule{color: @fuzhuwenzi;}
+.am-icon.am-icon-xxs{color: @fuzhuwenzi;}
+
+.emptyList{line-height: 90px;font-size: 16px;border-radius: 10px;text-align: center;
+  .img{transform: scale(3);margin-top: 140px}
+  .btnbrown{display: inline-block;padding: 5px 6px 3px 6px;margin-left: 5px;border-radius: 4px;transition: all 0.5s ease;align-items: baseline;
+    line-height: 1;border: 1px solid #7c5b4a;color: white;background: #7c5b4a;
+    &:active{border: 1px solid #7c5b4a;color: #7c5b4a;background: white;}
+  }
+}
+
+
+.lampIcon{line-height: 0;margin: 0 auto;display: flex;vertical-align: middle;border: 0 none;outline: none;background-color: transparent;background-repeat: no-repeat;background-attachment: scroll;
+  background-image: url('./images/lamp.png');width: 30px;height: 42px;background-size:350%;
+  ._share{background-position: 1px 4px;animation-duration: 3s;animation-timing-function: steps(2, end);animation-iteration-count: infinite;}
+  &.l-gong{animation-name:mymove;._share;}
+  &.l-gong-mini{animation-name:mymove1;._share;}
+  @keyframes mymove {100% {background-position: 1px 4px;}}
+  @keyframes mymove1 {100% {background-position: 1px 4px;}}
+
+  &.l-shan{background-position: 1px 0;}
+  &.l-bushan{background-position: -64px 0;}
+  &.tini{width: 25px;height:27px;display: inline-block;vertical-align: bottom;}
+
+  &.l-red{background-position: -38px 4px;
+      &.mini{background-position-x:-34px;}
+  }
+  &.l-grey{background-position: -75px 4px;
+      &.mini{background-position-x:-69px;}
+  }
+  &.mini{width: 27px;height:33px;}
+}

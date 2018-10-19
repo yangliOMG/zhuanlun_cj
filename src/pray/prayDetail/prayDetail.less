@@ -1,0 +1,70 @@
+.prayDetail{border-radius: 15px;overflow: hidden;margin-top: -60px;
+    .prayText{background: #fff;padding: 25px 10px;position: relative;
+        .art{font-size:1.2rem;padding-bottom: 30px;
+            .notpay{font-size: 20px;font-weight: bold;color: red}
+        }
+        .inf{padding-bottom:10px;
+            .leftBlock{width: 77%;display: inline-block;
+                .li{writing-mode:tb-rl;list-style: none;color: #bbb;
+                    &>li{padding-left: 14px;
+                        span{color: grey;}
+                        p{    font-size: 12px;}
+                    }
+                }
+            }
+            .rightBlock{width: 22%;display: inline-block;float: left;}
+        }
+        .follow{position: absolute;right: 20px;bottom: 0px;
+            .arrow{transform: rotate(180deg);right: 20px;top: -14px;
+                animation:fudong 1s;animation-direction: alternate;animation-iteration-count:infinite;
+                -webkit-animation:fudong 1s;-webkit-animation-direction: alternate;-webkit-animation-iteration-count:infinite;}
+                @keyframes fudong{from {margin-top:-3px;}to {margin-top:3px;}}
+        }
+    }
+}
+.am-modal.am-modal-transparent.am-modal-android{width: 83%;
+    .am-modal-content{overflow: visible;
+        .am-modal-body{overflow: visible}
+    }
+}
+.am-picker-popup-item.am-picker-popup-header-right{color:#7c5b4a}
+.am-picker-popup-item.am-picker-popup-header-left{color: grey;}
+.messageModal{margin: -20px -25px;position: relative;
+    &.mode2{margin: 0px -15px;}
+    .am-textarea-label.am-textarea-label-5 {width: 45px;}
+    .am-input-label.am-input-label-5 {width: 45px;}
+    .radioBlock{margin: 0 28px 0 8px;}
+    .am-list-item .am-list-line{
+        .am-list-content{flex: initial;overflow: initial;}
+        .am-list-extra{flex-basis: initial;}
+    }
+    .anniu{border-radius: 50%;text-align: center;display: inline-block;color: white;
+        &:active{ box-shadow:0 1px 8px rgba(0, 0, 0, 0.5) inset}
+        &.cha{width: 18px;height: 18px;line-height: 16px;background: #bbb;position: absolute;right: 7px;top: 5px;}
+        &.sure{width: 76px;height: 76px;line-height: 76px;position: absolute;bottom: -31px;left: ~"calc(50% - 38px)";box-shadow: 1px 1px 1px black;}
+    }
+    .btnArea{display: flex;color:white;text-align:center;padding-top: 10px;
+        .btn{padding: 5px 10px;border-radius: 5px;box-shadow: 1px 1px 1px #bbb;width: 70%;margin: 0 auto;
+            &:active{ box-shadow:0 1px 8px rgba(0, 0, 0, 0.5) inset}
+        }
+        .btnBlock{flex:1}
+    }
+}
+
+.dbssBlock{position: fixed;top: 0;bottom: 0;left: 0;right: 0;text-align: center;background: #fff;opacity: 1;
+    &.burnings{animation-name:buring1;animation-duration: 3s;animation-fill-mode: forwards;animation-delay:5s;}
+    @keyframes buring1 {100% {opacity: 0;}}
+
+    >img{width: auto;height: auto;max-width: 100%;max-height: 100%;}    
+    .burnBlock{position: fixed;right: 0;top: 0;background: radial-gradient(at 380px 0px, #000 64%, orange 70%, red);
+        border-left: 1px solid red;border-bottom: 1px solid red;width: 0%;height:0%;border-radius: 20% 0 10% 91%;
+        &.burning{animation-name:buring;animation-duration: 5s;animation-fill-mode: forwards;}
+        @keyframes buring {20% {width: 10%;height:20%;}}
+        @keyframes buring {40% {width: 70%;height:80%;}}
+        @keyframes buring {60% {width: 110%;height:120%;}}
+        @keyframes buring {100% {width: 130%;height:130%;}}
+    }
+    .burnBtn{position:fixed;padding: 10px;bottom: 20px;left: 30%;right: 30%;font-size: 1rem;border-radius: 27px;color: #fff;
+        &:active{ box-shadow:0 1px 8px rgba(0, 0, 0, 0.5) inset}
+    }
+}
