@@ -72,7 +72,7 @@ class Temple extends React.Component{
         return (
             <div>
                 <div>
-                    <img width='100%' src={temple.ico||require('./linyinsi.jpg')} alt="" />
+                    <img width='100%' src={temple.ico||""} alt="" />
                 </div>
                 <div className='d-pannel radius'>
                     <div className='name'>{temple.name}祈福塔</div>
