@@ -2,7 +2,7 @@
  * @Author: yangli 
  * @Date: 2018-05-21 11:17:09 
  * @Last Modified by: yangli
- * @Last Modified time: 2018-10-19 12:26:58
+ * @Last Modified time: 2018-10-31 14:51:15
  */
 import { Toast } from 'antd-mobile';
 /**
@@ -119,6 +119,24 @@ export function cengConvert(idx,lenth){
     } catch (error) {
         return 'X'
     }
+}
+/**
+ * 数字反向表示层数
+ * @param {面} side 
+ * @param {行} row 
+ * @param {列} row 
+ * @param {最大高度} maxH 
+ * @param {模式} mode       mode1 转换模式 :面-1 行-1 列0  ；mode2: 面0 行0 列+1  
+ */
+export function positionMesArray(side,row,col,maxH,mode){
+    if(mode==="mode1"){
+        return [`${directionDictionary(side-1)}${cengConvert(row-1,maxH||15)}层第${('0'+col).slice(-2)}位`,
+                `${directionDictionary(side-1)}${cengConvert(row-1,maxH||15)}${col}`,
+                `${side-1},${row-1},${col-1}`]
+    }else
+        return [`${directionDictionary(side)}${cengConvert(row,maxH)}层第${('0'+(Number(col)+1)).slice(-2)}位`,
+                `${directionDictionary(side)}${cengConvert(row,maxH)}${Number(col)+1}`,
+                `${side},${row},${col}`]
 }
 /**
  * 时间转汉字

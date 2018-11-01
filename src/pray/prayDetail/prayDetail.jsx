@@ -2,7 +2,7 @@ import React from 'react'
 import { WhiteSpace ,WingBlank, List ,InputItem,TextareaItem,DatePicker,Picker, Toast, Button } from 'antd-mobile'
 import {connect} from 'react-redux'
 import District from './area'
-import {duringDictionary, dateDictionary, showToast, directionDictionary, cengConvert, timeFormat, timeLongCount } from '../../util'
+import {duringDictionary, dateDictionary, showToast, positionMesArray, timeFormat, timeLongCount } from '../../util'
 import Popup from '../../component/userMesTable/userMesTable.jsx'
 import {updateOrder} from '../../redux/order.redux'
 
@@ -187,11 +187,11 @@ class PrayDetail extends React.Component{
                                         </li>
                                         <li>
                                             <span>● 供灯位置：</span>
-                                            {order.dengwei.map((val,idx)=>
+                                            {order.dengwei.map(v=>positionMesArray(v.side,v.row,v.col,v.maxrow,"mode1")).map((val,idx)=>
                                                 idx>2?null:
-                                                <p key={val.address}>{
+                                                <p key={idx}>{
                                                     idx===2?'。。。':
-                                                    `${directionDictionary(val.side-1)}面${cengConvert(val.row-1,val.maxrow||15)}层${('0'+val.col).slice(-2)}位`
+                                                    val[0]
                                                 }</p>
                                             )}
                                         </li>

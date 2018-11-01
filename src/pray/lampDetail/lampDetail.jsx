@@ -4,7 +4,7 @@ import { Button, Toast } from 'antd-mobile'
 import FontAwesome from 'react-fontawesome';
 import {connect} from 'react-redux'
 import TabEx from  './tabEx.jsx'
-import {directionDictionary, recommendAI, cengConvert} from '../../util'
+import {directionDictionary, recommendAI, showToast, positionMesArray} from '../../util'
 import {updateOrder} from '../../redux/order.redux'
 import Tem from '../../service/temple-service.jsx'
 
@@ -27,30 +27,6 @@ class LampDetail extends React.Component{
             lastPageHide:false,
             nextPageHide:false,
             activeArrow:false,
-            // data : [
-            //     [
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:1,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //         [{id:1,state:1},{id:2,state:1},{id:2,state:0},{id:3,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //     ],
-            //     [
-            //         [{id:2,state:0},{id:12,state:1},{id:2,state:0},{id:13,state:1},{id:2,state:0},{id:2,state:0},{id:2,state:0}],
-            //     ],
-            //     [
-            //         [{id:2,state:0},{id:282,state:1},{id:2,state:0},{id:29,state:1},{id:3,state:1},{id:2,state:0},{id:2,state:0}],
-            //         [{id:2,state:0},{id:282,state:1},{id:2,state:0},{id:29,state:1},{id:3,state:1},{id:2,state:0},{id:2,state:0}],
-            //     ],
-            // ],
         }
     }
 
@@ -146,9 +122,7 @@ class LampDetail extends React.Component{
 
         if(lampdata.state===0){
             lampdata.state = 2
-            seledList.set(lampdata.id,[`${directionDictionary(idx)}${cengConvert(idx1,len)}层第${('0'+(Number(idx2)+1)).slice(-2)}位`,
-                `${directionDictionary(idx)}${cengConvert(idx1,len)}${Number(idx2)+1}`,
-                `${idx},${idx1},${idx2}`])
+            seledList.set(lampdata.id, positionMesArray(idx,idx1,idx2,len) )
         }else if(lampdata.state===2){
             seledList.delete(lampdata.id)
             lampdata.state = 0
@@ -174,7 +148,13 @@ class LampDetail extends React.Component{
         })
     }
     handleSureSelectClick(){
-        const value = {position:[...this.state.seledList],num:this.state.seledList.size}
+        const { seledList } = this.state
+        const oldnum = this.props.num
+        const num = seledList.size
+        const value = {position:[...seledList],num}
+        if(oldnum>num){
+            return showToast(`还要再选${oldnum-num}个位置`,2)
+        }
         this.props.updateOrder(value)
         this.props.onClose(value)
         this.props.history.goBack()

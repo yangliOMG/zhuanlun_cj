@@ -7,7 +7,7 @@ import LampDetail from '../../pray/lampDetail/lampDetail.jsx'
 // import Template from '../../pray/template/template.jsx'
 
 import {updateOrder,newOrder} from '../../redux/order.redux'
-import {showToast,duringDictionary,getStorage,directionDictionary,cengConvert,getQueryString } from '../../util'
+import {showToast,duringDictionary,getStorage,positionMesArray,getQueryString } from '../../util'
 import {webchatPay } from './wechatPay.js'
 import Tem from '../../service/temple-service.jsx'
 import Order from '../../service/order-service.jsx'
@@ -50,69 +50,66 @@ class PrayForm extends React.Component{
         }
 
     }
+    ajaxGetFacilityMessage(fid){
+        _temple.getTowerAndPriceById(fid).then(res=>{
+            if(res.status === 200 && res.data.data.facility){
+                this.setState({
+                    obj: res.data.data.facility,
+                })
+            }else{
+                showToast('没有该祈福塔信息')
+            }
+        })
+        _temple.getPriceById(fid).then(res=>{
+            if(res.status === 200 && res.data.data){
+                let price = {}
+                res.data.data.forEach(v=>price[v.duration]=v.price)
+                this.setState({
+                    price
+                })
+            }
+        })
+    }
+    ajaxGetRandomPosition(num){
+        let id = this.props.location.hash.replace("#","").replace(/[^0-9a-zA-Z]/g,'')
+        _temple.getRandomPosition(id,num).then(res=>{
+            if(res.status === 200 && res.data.data){
+                let position = res.data.data.map(v=>([
+                    v.address,
+                    positionMesArray(v.side,v.row,v.col,v.maxrow,"mode1")
+                ]))
+                this.setState({ position })
+                this.props.updateOrder({position})
+            }else{
+                console.log('无法随机供灯位置')
+            }
+        })
+    }
     componentWillMount(){
         let id = this.props.location.hash.replace("#","").replace(/[^0-9a-zA-Z]/g,'')
         let pid = getQueryString("pid")
         if(pid){
             _order.getOrderByid(pid).then(res=>{
                 if(res.status === 200){
-                    let dengwei = res.data.dengwei, fid = res.data.fid
+                    let { dengwei,fid } = res.data
+
                     let position = dengwei.map(v=>([
                         v.address,
-                        [`${directionDictionary(v.side-1)}${cengConvert(v.row-1,v.maxrow||15)}层第${('0'+v.col).slice(-2)}位`,
-                            `${directionDictionary(v.side-1)}${cengConvert(v.row-1,v.maxrow||15)}${v.col}`,
-                            `${v.side-1},${v.row-1},${v.col-1}`]]))
-                    _temple.getTowerAndPriceById(fid).then(res=>{
-                        if(res.status === 200 && res.data.data.facility){
-                            let { facility, price,bright, lightNum } = res.data.data
-                            let prices = {}
-                            price.forEach(v=>prices[v.duration]=v.price)
-                            this.setState({
-                                obj: facility,
-                                price:prices,
-                                bright, 
-                                lightNum,
-                                position,
-                                positionChangable:false
-                            })
-                        }else{
-                            showToast('没有该祈福塔信息')
-                        }
+                        positionMesArray(v.side,v.row,v.col,v.maxrow,"mode1")
+                    ]))
+                    this.ajaxGetFacilityMessage(fid)
+                    this.setState({
+                        position,
+                        positionChangable:false
                     })
+
                 }
             })
         }else if(id){
-            _temple.getTowerAndPriceById(id).then(res=>{
-                if(res.status === 200 && res.data.data.facility){
-                    let { facility, price,bright, lightNum } = res.data.data
-                    let prices = {}
-                    price.forEach(v=>prices[v.duration]=v.price)
-                    this.setState({
-                        obj: facility,
-                        price:prices,
-                        bright, 
-                        lightNum,
-                    })
-                }else{
-                    showToast('没有该祈福塔信息')
-                }
-            })
+            this.ajaxGetFacilityMessage(id)
+
             if(this.state.position.length<=0){
-                _temple.getRandomPosition(id,this.state.num).then(res=>{
-                    if(res.status === 200 && res.data.data){
-                        let position = res.data.data.map(v=>([
-                            v.address,
-                            [`${directionDictionary(v.side-1)}${cengConvert(v.row-1,v.maxrow||15)}层第${('0'+v.col).slice(-2)}位`,
-                                `${directionDictionary(v.side-1)}${cengConvert(v.row-1,v.maxrow||15)}${v.col}`,
-                                `${v.side-1},${v.row-1},${v.col-1}`]]))
-                        this.setState({
-                            position,
-                        })
-                        this.props.updateOrder({position})
-                    }else{
-                        console.log('无法随机供灯位置')
-                    }
-                })
+                this.ajaxGetRandomPosition(this.state.num)
             }
         }
     }
@@ -241,16 +238,16 @@ class PrayForm extends React.Component{
     }
 
     render(){
-        const {obj,bright,lightNum } = this.state
+        const {obj,bright,lightNum,price,duration,num,unick,blessing } = this.state
         //module
         const Item = List.Item
         const Brief = Item.Brief
         //computed
-        const btnList = Object.keys(this.state.price).map(val=>
+        const btnList = Object.keys(price).map(val=>
                             duringDictionary().find(v=>v.type+''===val)
-                        )
-        const total = (this.state.price[this.state.duration]||0)* this.state.num
-        const prayArticle = this.state.blessing.replace(/{{prayer}}/g,this.state.unick||'')
+                        ).filter(v=>v)
+        const total = (price[duration]||0)* num
+        const prayArticle = blessing.replace(/{{prayer}}/g,unick||'')
         return (
             <div>
                 <PrayNavbar />
