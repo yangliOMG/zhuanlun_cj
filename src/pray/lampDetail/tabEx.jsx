@@ -79,7 +79,7 @@ class TabEx extends React.Component {
                                     </div>
                                 )}
                             </div>
-                            <div className="clearfix"></div>
+                            <div className="clearfix bg-w"></div>
                         </div>
                     </div>
                 )}
