@@ -23,7 +23,7 @@ class TempleDetail extends React.Component{
                     <p><span className='dot c-fuzhu'>● </span>供灯九盏：九九归一 万事吉祥</p>
                     </p>
 
-                    <p><span className='c-fuzhu b'>二、转动福佑灯塔的意义：</span></p>
+                    <p><span className='c-fuzhu b'>二、转动祈福明灯的意义：</span></p>
                     <p className='duanluo'>佛经云：“若人求福至其轮藏，一花一香礼拜供养右旋行道，由是功德：官位荣耀不求自至；寿命富饶不祈自增；怨家盗贼不讨自败；怨念咒咀不厌归本；疫疠邪气不拔自避；善夫良妇不求自得；贤男美女不祷自生。一切所愿任意满足！”</p>
                     <p><span className='dot c-fuzhu'>● </span>转三圈：怨念咒咀不厌归本； </p>
                     <p><span className='dot c-fuzhu'>● </span>转六圈：疫疠邪气不拔自避； </p>

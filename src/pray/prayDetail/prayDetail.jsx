@@ -223,10 +223,10 @@ class PrayDetail extends React.Component{
                 <Popup messageModal={this.state.messageModal} shutdown={this.onClose('messageModal')}>
                     <div className='messageModal mode2'>
                         <List>
-                            <InputItem placeholder="福佑联系人姓名"
+                            <InputItem placeholder="祈福联系人姓名"
                                 onChange={v=>this.handleInput('name',v)}
                             >姓名：</InputItem>
-                            <InputItem placeholder="福佑联系人电话"
+                            <InputItem placeholder="祈福联系人电话"
                                 onChange={v=>this.handleInput('phone',v)}
                             >电话：</InputItem>
                             <List.Item
@@ -238,7 +238,7 @@ class PrayDetail extends React.Component{
                                     <input type="radio" name="radio" id="female" onChange={v=>this.handleInput('sex','2')}/>女
                                 </label>
                             </List.Item>
-                            <DatePicker mode="date" title="生日" extra="福佑联系人生日" value={this.state.birthday} 
+                            <DatePicker mode="date" title="生日" extra="祈福联系人生日" value={this.state.birthday} 
                                 minDate={new Date(1900,1,1)} maxDate={new Date()} onChange={birthday => this.setState({ birthday })}
                                 >
                                 <List.Item arrow="horizontal">生日：</List.Item>

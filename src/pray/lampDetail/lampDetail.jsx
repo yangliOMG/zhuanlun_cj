@@ -200,7 +200,7 @@ class LampDetail extends React.Component{
                             </div>
                             <div className="channel-box" style={{WebkitTransform: `translate(-${this.state.curPage}00%,0)`  }}>
                                 {data.map((v,idx)=>
-                                    <div className="channel" key={idx}>福佑灯塔 <span className='c-fuzhu'>{directionDictionary(idx)}</span></div>
+                                    <div className="channel" key={idx}>祈福明灯 <span className='c-fuzhu'>{directionDictionary(idx)}</span></div>
                                 )}
                             </div>
                         </div>

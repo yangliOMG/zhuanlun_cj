@@ -26,7 +26,7 @@ class Shouye extends React.Component{
             _user.getUserLogin(isMoblieMode,code).then(res=>this.storageSave(res.data,type))
         }else if(user === ''|| !user.openid){
             if(isMoblieMode){
-                let appid = 'wx0844c3919de8209c',//祈福明灯'wx0844c3919de8209c',福佑法缘'wx9ce81988a89adfc4'
+                let appid = 'wx0844c3919de8209c',
                     RedicetURI = window.location.href,
                     uri = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${RedicetURI}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`
                 window.location.href = uri;
