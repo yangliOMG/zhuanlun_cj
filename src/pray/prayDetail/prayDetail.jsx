@@ -72,7 +72,7 @@ class PrayDetail extends React.Component{
     messageInit(order){
         this.setState({order : order})
         if(order.payStatus===2&&order.blissStatus===2){
-            this.handleInput('messageModal2',true)
+            // this.handleInput('messageModal2',true)
         }else if(order.payStatus!==2){
             _order.getWechatPayCallback({prayId:order.id}).then(res=>{
                 if(res.status===200&&res.data.trade_state==='SUCCESS'){
