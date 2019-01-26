@@ -37,7 +37,7 @@ class TempleDetail extends React.Component{
                     <p><span className='c-fuzhu b'>三、佛前供灯时间含义：</span></p>
                     <p className='duanluo'>点亮的灯随转轮藏转动。每转动一圈代表为每位点灯祈福者念送转轮藏内经文一遍，祈福一次。</p>
 
-                    <p><span className='dot c-fuzhu'>● </span>点灯一天：代表冤家盗贼不伐自败，不=受小人坑害、强盗打击和小偷损财；</p>
+                    <p><span className='dot c-fuzhu'>● </span>点灯一天：代表冤家盗贼不伐自败，不受小人坑害、强盗打击和小偷损财；</p>
                     <p><span className='dot c-fuzhu'>● </span>点灯一月：代表官位荣耀不求自得，官位和社会名利不求自得；</p>
                     <p><span className='dot c-fuzhu'>● </span>点灯一年：代表俊男美女不祷自生，子孙后代贤良淑慧、衣禄无忧、光耀门厅；</p>
                     <p><span className='dot c-fuzhu'>● </span>点灯三年：一切心愿任意满足，所有心愿都能满足，子孙无忧。（注：三年代表长明）</p>

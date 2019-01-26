@@ -75,7 +75,7 @@ class Temple extends React.Component{
                     <img width='100%' src={temple.ico||""} alt="" />
                 </div>
                 <div className='d-pannel radius'>
-                    <div className='name'>{temple.name}祈福塔</div>
+                    <div className='name'>{temple.name}</div>
                     {
                         facility.length===1?
                         <div className="d-flexbox" onClick={(e)=> this.handleChannelActive(facility[0].facility.id,e)}>
@@ -85,12 +85,12 @@ class Temple extends React.Component{
                                     <img className="d-active" src={require('./active.png')} alt=""/>
                                 </div>
                                 <div className='ti'>
-                                    <div className='title'>{facility[0].facility.tname+' '+ facility[0].facility.name}</div>
+                                    <div className='title'>{facility[0].facility.name}</div>
                                     <div className="d-tips">
                                         <span className='lampIcon l-shan tini'></span>{facility[0].bright}&nbsp;&nbsp;&nbsp;&nbsp;
                                         <span className='lampIcon l-bushan tini'></span>{facility[0].lightNum-facility[0].bright}
                                     </div>
-                                    <div className="d-qifu orangeBtn">我要祈福</div>
+                                    <div className="d-qifu orangeBtn" onClick={(e)=> this.handleClickPray(e)}>我要祈福</div>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ class Temple extends React.Component{
                                             <img className="d-img" src={v.facility.ico||require('./tower.jpg')} alt=""/>
                                             <img className="d-active" src={require('./active.png')} alt=""/>
                                             <div className="d-text">
-                                                <div className="d-name">{v.facility.tname+' '+ v.facility.name}</div>
+                                                <div className="d-name">{v.facility.name}</div>
                                                 <div className="d-tips">
                                                     <span className='lampIcon l-shan tini'></span>{v.bright}&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <span className='lampIcon l-bushan tini'></span>{v.lightNum-v.bright}
