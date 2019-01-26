@@ -53,8 +53,11 @@ class PrayForm extends React.Component{
     ajaxGetFacilityMessage(fid){
         _temple.getTowerAndPriceById(fid).then(res=>{
             if(res.status === 200 && res.data.data.facility){
+                let { facility, bright, lightNum } = res.data.data
                 this.setState({
-                    obj: res.data.data.facility,
+                    obj: facility,
+                    bright, 
+                    lightNum,
                 })
             }else{
                 showToast('没有该祈福塔信息')
