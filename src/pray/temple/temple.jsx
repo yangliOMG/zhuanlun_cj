@@ -24,12 +24,13 @@ class Temple extends React.Component{
         }
     }
     componentWillMount(){
-        const id = this.props.location.hash.replace("#","")
-        _temple.getHistoryByType(0)
-        .then(res=> (id||res.data.oid)? 
-            _temple.getTempleById(id||res.data.oid,true):
-            window.location.href = '/templeList'
-        ).then(res=>{
+        // const id = this.props.location.hash.replace("#","")
+        // _temple.getHistoryByType(0)
+        // .then(res=> (id||res.data.oid)? 
+        //     _temple.getTempleById(id||res.data.oid,true):
+        //     window.location.href = '/templeList')
+        _temple.getTempleById(1)
+        .then(res=>{
             if(res.status === 200&&res.data.temple.length>0){
                 let active = res.data.facility.length>0? res.data.facility[0].facility.id:null
                 this.setState({
