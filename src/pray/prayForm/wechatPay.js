@@ -6,6 +6,15 @@ const _order = new Order()
 export function webchatPay(res){
     Toast.loading('加载中...',0)
     _order.getWechatPay(res).then(res=>{
+
+        // 2019-9-29 直接跳转不支付
+        if(res.data && res.data.prayId){
+            return window.location.href = '/pay/prayDetail#'+res.data.prayId
+
+        }else{
+            return window.location.href = '/personalCenter'
+        }
+
         if (typeof(WeixinJSBridge) === "undefined"){  
             if( document.addEventListener ){  
                 document.addEventListener('WeixinJSBridgeReady', onBridgeReady.bind(res.data), false);  
