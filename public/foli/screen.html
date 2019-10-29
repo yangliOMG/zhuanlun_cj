@@ -20,6 +20,15 @@
 </body>
 <script language="JavaScript" type="text/javascript"> 
 
+    function getQueryString(name){
+        if(typeof window === "undefined"){
+            return true
+        }
+        let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+
     var flag = 0;
     function ajax(){
         var id = window.location.hash.replace('#','') || getQueryString("id") || 1
