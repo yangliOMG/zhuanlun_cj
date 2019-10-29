@@ -32,9 +32,9 @@
 
     var flag = 0;
     function ajax(){
-        var id = window.location.hash.replace('#','') || getQueryString("id")
+        var id = window.location.hash.replace('#','') || getQueryString("id") || 1
         var client = new XMLHttpRequest()
-        var url = "http://www.qifumingdeng.com:8003/led/info.do?id="+id
+        var url = "/led/info.do?id="+id
         client.open("GET", url)
         client.onreadystatechange = function() {
             if (this.status === 200 && this.response!=="") {
