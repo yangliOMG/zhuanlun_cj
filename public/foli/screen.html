@@ -32,22 +32,36 @@
 
     var flag = 0;
     function ajax(){
-        var fid = window.location.hash.replace('#','') || getQueryString("fid")
-        var duration = getQueryString("duration")
+        var id = window.location.hash.replace('#','') || getQueryString("id")
         var client = new XMLHttpRequest()
-        var url = fid===""? "/pray/top.do?top=5": "/pray/top.do?top=5&fid="+fid+"&duration="+duration
+        var url = "http://www.qifumingdeng.com:8003/led/info.do?id="+id
         client.open("GET", url)
         client.onreadystatechange = function() {
             if (this.status === 200 && this.response!=="") {
                 try {
                     var res = JSON.parse(this.response)
                     if(res.returnCode === 1000){
-                        var data = res.data, htmlArr=''
-                        for (var i = 0; i < data.length; i++) {
-                            htmlArr += "<div class='innel'><span class='c-yellow'>"+data[i].prayman+"</span>供灯"+data[i].lednums+"盏<span class='c-white'>"+data[i].blessing+"</span></div>"
+                        var timelong = { 1:'日', 7:'周', 30:'月', 365:'年', 7200:'长明',}
+                        var data = res.data, htmlArr='';
+                        var dataArr = data.topDatas;
+                        for (var i = 0; i < dataArr.length; i++) {
+                            if(data.wordtype==0){
+                                htmlArr += "<div class='innel'><span class='c-yellow'>"+dataArr[i].prayman+"</span>供灯"+dataArr[i].lednums+"盏<span class='c-white'>"+dataArr[i].blessing+"</span></div>"
+                            }else{
+                                htmlArr += "<div class='innel'><span class='c-yellow'>"+dataArr[i].prayman+"</span>供"+timelong[dataArr[i].duration]+"灯"+dataArr[i].lednums+"盏</div>"
+                            }
                         }
                         marqueeContent[flag]=htmlArr;
                         flag = flag==0?1:0;
+                        if(SPEED != data.speed){
+                            SPEED = data.speed;
+                            clearInterval(marqueeInterval); 
+                            startMarquee();
+                        }
+                        if(FONTSIZE != data.fontsize){
+                            FONTSIZE = data.fontsize;
+                            document.getElementById("marqueeBox").style.fontSize = FONTSIZE+'px'
+                        }
                     }
                 } catch (error) {
                 }
@@ -65,11 +79,12 @@
     var marqueeInterval; 
     var marqueeId=0; 
     var SPEED=70; 
+    var FONTSIZE = 16; 
     function initMarquee() { 
         var str=marqueeContent[0]; 
         document.getElementById("marqueeBox").innerHTML = '<div id="ban">'+str+'</div>'
         marqueeId++; 
-        startMarquee();
+        // startMarquee();
     } 
     function startMarquee() { 
         var str=marqueeContent[marqueeId]; 
@@ -86,7 +101,7 @@
             document.getElementById("marqueeBox").scrollTop=0; 
         } 
         clearInterval(marqueeInterval); 
-        marqueeInterval=setInterval("scrollMarquee()",SPEED); 
+        marqueeInterval=setInterval("scrollMarquee()",5000/SPEED); 
     } 
     function scrollMarquee() { 
         document.getElementById("marqueeBox").scrollTop++; 

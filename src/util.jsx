@@ -106,7 +106,7 @@ export function directionDictionary(num,type=0){
  * 数字转时间长度
  */
 export function duringDictionary(){
-    return [{type:1,name:'1天'},{type:30,name:'1月'},{type:365,name:'1年'},{type:7200,name:'长明'}]
+    return [{type:1,name:'1天'},{type:7,name:'1周'},{type:30,name:'1月'},{type:365,name:'1年'},{type:7200,name:'长明'}]
 }
 /**
  * 数字反向表示层数
