@@ -48,7 +48,7 @@ class Order{
     
 
     getWechatPay(res){
-        return axios.get('/wxpay/wechat_paytest.do',{params: {
+        return axios.get('/wxpay/wechat_pay.do',{params: {
             prayId:res.prayId , 
         }})
     }
